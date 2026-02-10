@@ -76,9 +76,6 @@ COPY scripts ./scripts
 COPY docs ./docs
 COPY install ./install
 
-# 复制Docker环境配置文件
-COPY .env.docker ./.env
-
 # 暴露后端端口（与docker-compose.v1.0.0.yml一致）
 EXPOSE 8000
 
@@ -86,4 +83,5 @@ EXPOSE 8000
 ENV DOCKER_CONTAINER=true
 
 # 启动FastAPI服务
-CMD ["python", "-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# - Railway/Render 等平台会注入 $PORT；本地默认 8000
+CMD ["sh", "-lc", "python -m uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
