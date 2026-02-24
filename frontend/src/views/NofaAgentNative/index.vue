@@ -1,243 +1,336 @@
 <template>
   <div class="nofa-agent-native">
-    <div class="bg-grid"></div>
+    <div class="noise"></div>
 
-    <section class="hero">
-      <div class="hero-copy">
-        <p class="eyebrow">NOFA x OpenClaw Demo</p>
-        <h1>NOFA - Agent Native Trading</h1>
-        <p class="subtitle">AI suggest trade, Human approve, 24/7 non-stop</p>
-        <p class="desc">
-          把 NOFA 作为策略大脑，把 OpenClaw 作为 agent runtime 与推送/审批层。今天 Demo 为全模拟流程，
-          用于展示 API 接口、审批链路和产品体验。
-        </p>
-        <div class="hero-actions">
-          <el-button type="warning" size="large" @click="scrollToDemo">Try Demo Flow</el-button>
-          <el-button size="large" @click="scrollToDocs">Read API Docs</el-button>
-        </div>
-        <div class="disclaimer-inline">
-          <el-tag type="warning" effect="dark">Demo only</el-tag>
-          <el-tag effect="plain">No live trading</el-tag>
-          <el-tag effect="plain">Timeout defaults to cancel</el-tag>
+    <section class="hero-shell">
+      <div class="topline">
+        <div class="brand-pill">NOFA x OpenClaw</div>
+        <div class="hero-links">
+          <button @click="scrollToDemo">Demo</button>
+          <button @click="scrollToDocs">API Docs</button>
         </div>
       </div>
-      <div class="hero-panel">
-        <div class="terminal-card">
-          <div class="terminal-header">
-            <span>OpenClaw Push (Mock)</span>
-            <span class="status-dot"></span>
+
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Agent-native trading workflow</p>
+          <h1>
+            AI suggests the trade.<br>
+            Human approves the trade.<br>
+            The system runs 24/7.
+          </h1>
+          <p class="hero-sub">
+            用 NOFA 做策略大脑，用 OpenClaw 做 runtime、push 与审批。把「交易建议」变成一个可审计、可回放、
+            可接入的 agent task，而不是一条聊天消息。
+          </p>
+
+          <div class="hero-cta">
+            <el-button type="warning" size="large" @click="scrollToDemo">Try Demo Flow</el-button>
+            <el-button size="large" @click="scrollToDocs">Read API Docs</el-button>
           </div>
-          <div class="terminal-body">
-            <div class="msg-title">NOFA Trading Opportunity</div>
-            <div class="msg-row"><span>Symbol</span><strong>BTCUSDT</strong></div>
-            <div class="msg-row"><span>Side</span><strong class="buy">BUY</strong></div>
-            <div class="msg-row"><span>Qty</span><strong>0.1</strong></div>
-            <div class="msg-row"><span>Leverage</span><strong>8x</strong></div>
-            <div class="msg-reason">MACD reversal with bullish funding rate</div>
-            <div class="msg-actions">
-              <button>YES</button>
-              <button class="ghost">NO</button>
+
+          <div class="hero-proof">
+            <div class="proof-item">
+              <span class="proof-k">Flow</span>
+              <strong>Suggest → Approve → Execute</strong>
+            </div>
+            <div class="proof-item">
+              <span class="proof-k">Mode</span>
+              <strong>Co-Pilot (human-in-the-loop)</strong>
+            </div>
+            <div class="proof-item">
+              <span class="proof-k">Status</span>
+              <strong>Demo only / mock execution</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-aside">
+          <div class="mini-card metrics-card">
+            <div class="mini-title">What this demo proves</div>
+            <ul>
+              <li>OpenClaw can onboard exchange credentials (mock)</li>
+              <li>NOFA can publish a typed trade suggestion</li>
+              <li>Human can reply yes / no before execution</li>
+              <li>Every step is tracked as an audit timeline</li>
+            </ul>
+          </div>
+
+          <div class="mini-card message-card">
+            <div class="message-head">
+              <span>OpenClaw push</span>
+              <span class="badge-live">pending approval</span>
+            </div>
+            <div class="message-title">NOFA Trading Opportunity</div>
+            <div class="message-grid">
+              <div><span>Pair</span><strong>BTCUSDT</strong></div>
+              <div><span>Action</span><strong class="buy">BUY</strong></div>
+              <div><span>Qty</span><strong>0.1</strong></div>
+              <div><span>Lev</span><strong>8x</strong></div>
+            </div>
+            <p class="message-note">MACD reversal with bullish funding rate.</p>
+            <div class="message-buttons">
+              <button class="btn-primary" type="button">Yes</button>
+              <button class="btn-secondary" type="button">No</button>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section">
-      <div class="section-title">Why Agent Native</div>
-      <div class="three-col">
-        <div class="info-card">
-          <h3>NOFA = Strategy Brain</h3>
-          <p>生成交易建议、风险解释、模式策略（Pilot / Co-Pilot）。</p>
+    <section class="band">
+      <div class="band-head">
+        <h2>Why this is agent-native (not just chat-native)</h2>
+        <p>
+          YC 风格的核心不是“炫 UI”，而是把产品价值讲清楚。这里的价值是：建议、审批、执行、审计在同一条任务链上。
+        </p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3>NOFA = strategy engine</h3>
+          <p>生成交易建议、风险解释、symbol 选择和模式策略（pilot / co-pilot）。</p>
         </div>
-        <div class="info-card">
-          <h3>OpenClaw = Runtime</h3>
-          <p>负责消息推送、审批采集、任务状态回传、审计轨迹。</p>
+        <div class="feature-card">
+          <h3>OpenClaw = runtime + approvals</h3>
+          <p>推送建议、采集 yes/no、回调结果，并作为任务执行轨迹的 runtime 层。</p>
         </div>
-        <div class="info-card">
-          <h3>Human = Final Control</h3>
-          <p>Co-Pilot 模式中由人类确认 yes/no，避免自动执行风险。</p>
+        <div class="feature-card">
+          <h3>Human = decision checkpoint</h3>
+          <p>在 Co-Pilot 模式中保留最终控制权，防止未确认交易被静默执行。</p>
         </div>
       </div>
     </section>
 
-    <section class="section">
-      <div class="section-title">Product Modes</div>
-      <div class="modes">
-        <div class="mode-card">
-          <h3>Pilot Mode</h3>
-          <p>Auto-approve policy（文案说明）</p>
+    <section class="band modes-band">
+      <div class="band-head">
+        <h2>One system, two operating modes</h2>
+        <p>同一个任务状态机，切换审批策略即可支持 Pilot 与 Co-Pilot。</p>
+      </div>
+      <div class="mode-rows">
+        <div class="mode-row">
+          <div>
+            <div class="mode-name">Pilot Mode</div>
+            <p class="mode-copy">Auto-approve policy（今天不演示真实执行，仅展示概念映射）</p>
+          </div>
           <ul>
-            <li>NOFA 自动执行策略</li>
-            <li>适合受控账户/阈值内场景</li>
-            <li>今日不演示真实执行</li>
+            <li>适合受控账户或阈值内策略</li>
+            <li>仍然保留审计日志与任务记录</li>
+            <li>可配置高风险交易强制人工审批</li>
           </ul>
         </div>
-        <div class="mode-card active">
-          <h3>Co-Pilot Mode (Demo)</h3>
-          <p>Human approval required</p>
+
+        <div class="mode-row active">
+          <div>
+            <div class="mode-name">Co-Pilot Mode (Demo)</div>
+            <p class="mode-copy">Human approval required before execution</p>
+          </div>
           <ul>
-            <li>NOFA 生成建议</li>
-            <li>OpenClaw 推送给人类</li>
-            <li>人类 Yes/No 后再执行（mock）</li>
+            <li>NOFA 先给建议与理由</li>
+            <li>OpenClaw 推送建议给人类</li>
+            <li>Yes / No 决策回传 NOFA 再执行（mock）</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <section ref="demoRef" class="section demo-section">
-      <div class="section-title">Demo Flow Panel (Co-Pilot Mode)</div>
-      <el-alert type="warning" :closable="false" show-icon>
+    <section ref="demoRef" class="band demo-band">
+      <div class="band-head">
+        <h2>Interactive demo (today)</h2>
+        <p>模拟完整链路：API key onboarding → NOFA suggestion → Human approval → Mock execution result.</p>
+      </div>
+
+      <el-alert type="warning" :closable="false" show-icon class="demo-alert">
         <template #title>Demo only / No live trading / No real exchange request</template>
-        所有 API Key 仅保存在本页内存态；不会发起真实 Binance 下单或校验。
+        所有 API Key 仅保存在本页内存态；不会发起真实 Binance 下单或验签。
       </el-alert>
 
-      <div class="demo-grid">
-        <div class="demo-card">
-          <div class="card-hd">Step A · Connect Binance API Key (Mock)</div>
-          <el-form label-width="112px" class="demo-form">
-            <el-form-item label="Mode">
-              <el-radio-group v-model="mode">
-                <el-radio-button label="copilot">Co-Pilot</el-radio-button>
-                <el-radio-button label="pilot" disabled>Pilot (text only)</el-radio-button>
-              </el-radio-group>
-            </el-form-item>
-            <el-form-item label="Exchange">
-              <el-select v-model="exchange" style="width: 100%">
-                <el-option label="Binance" value="binance" />
-                <el-option label="Aster" value="aster" />
-                <el-option label="Hyperliquid" value="hyperliquid" />
-              </el-select>
-            </el-form-item>
-            <el-form-item label="User ID">
-              <el-input v-model="userId" />
-            </el-form-item>
-            <el-form-item label="API Key">
-              <el-input v-model="apiKey" placeholder="Enter API key (mock only)" />
-            </el-form-item>
-            <el-form-item label="API Secret">
-              <el-input v-model="apiSecret" type="password" show-password placeholder="Enter API secret (mock only)" />
-            </el-form-item>
-            <div class="form-actions">
-              <el-button type="warning" :loading="submittingAccount" @click="submitAccount">Submit API Key</el-button>
-              <el-button @click="resetDemo">Reset Demo</el-button>
-            </div>
-          </el-form>
+      <div class="demo-layout">
+        <div class="demo-column">
+          <div class="panel">
+            <div class="panel-title">1. Connect account (mock)</div>
+            <p class="panel-desc">用户通过 OpenClaw 提交交易所 API，NOFA 返回 account_id 与 masked key。</p>
+            <el-form label-width="96px" class="demo-form">
+              <el-form-item label="Mode">
+                <el-radio-group v-model="mode">
+                  <el-radio-button label="copilot">Co-Pilot</el-radio-button>
+                  <el-radio-button label="pilot" disabled>Pilot</el-radio-button>
+                </el-radio-group>
+              </el-form-item>
+              <el-form-item label="Exchange">
+                <el-select v-model="exchange" style="width: 100%">
+                  <el-option label="Binance" value="binance" />
+                  <el-option label="Aster" value="aster" />
+                  <el-option label="Hyperliquid" value="hyperliquid" />
+                </el-select>
+              </el-form-item>
+              <el-form-item label="User ID">
+                <el-input v-model="userId" />
+              </el-form-item>
+              <el-form-item label="API Key">
+                <el-input v-model="apiKey" placeholder="Enter API key (mock only)" />
+              </el-form-item>
+              <el-form-item label="Secret">
+                <el-input v-model="apiSecret" type="password" show-password placeholder="Enter API secret (mock only)" />
+              </el-form-item>
+              <div class="form-actions">
+                <el-button type="warning" :loading="submittingAccount" @click="submitAccount">Submit API Key</el-button>
+                <el-button @click="resetDemo">Reset Demo</el-button>
+              </div>
+            </el-form>
 
-          <div v-if="accountConnected" class="result-box">
-            <div class="result-title">OpenClaw connected to NOFA account (mock)</div>
-            <div class="result-line"><span>Account ID</span><code>{{ accountId }}</code></div>
-            <div class="result-line"><span>Status</span><el-tag type="success">connected_mock</el-tag></div>
-            <div class="result-line"><span>Masked Key</span><code>{{ maskedKey }}</code></div>
-            <div class="result-line"><span>Permissions</span><code>trade, read (mock)</code></div>
+            <div v-if="accountConnected" class="status-card success">
+              <div class="status-title">OpenClaw connected to NOFA account (mock)</div>
+              <div class="kv"><span>Account ID</span><code>{{ accountId }}</code></div>
+              <div class="kv"><span>Status</span><el-tag type="success">connected_mock</el-tag></div>
+              <div class="kv"><span>Masked Key</span><code>{{ maskedKey }}</code></div>
+              <div class="kv"><span>Permissions</span><code>trade, read (mock)</code></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-title">2. API integration preview</div>
+            <p class="panel-desc">OpenClaw 一下接入 NOFA 的最小接口面。</p>
+            <ul class="endpoint-list">
+              <li><code>POST /api/nofa/openclaw/accounts</code></li>
+              <li><code>POST /api/nofa/openclaw/suggestions</code></li>
+              <li><code>POST /api/nofa/openclaw/approvals</code></li>
+              <li><code>GET /api/nofa/openclaw/tasks/{task_id}</code></li>
+            </ul>
           </div>
         </div>
 
-        <div class="demo-card">
-          <div class="card-hd">Step B · NOFA Suggestion + Step C · Human Approval</div>
-          <div class="action-row">
-            <el-button type="warning" :disabled="!accountConnected || !!task" :loading="generatingSuggestion" @click="generateSuggestion">
-              Generate Suggestion
-            </el-button>
-            <el-button text @click="showSampleCurl = !showSampleCurl">Toggle sample curl</el-button>
-          </div>
-
-          <pre v-if="showSampleCurl" class="curl-block"><code>{{ sampleCurl }}</code></pre>
-
-          <div v-if="task" class="push-card">
-            <div class="push-header">
+        <div class="demo-column wide">
+          <div class="panel">
+            <div class="panel-toprow">
               <div>
-                <div class="push-title">OpenClaw Push (Slack/Telegram style mock)</div>
-                <div class="push-sub">Task {{ task.task_id }}</div>
+                <div class="panel-title">3. NOFA suggestion + human yes/no</div>
+                <p class="panel-desc">模拟 OpenClaw 以 Slack / Telegram 风格卡片推送交易建议。</p>
               </div>
-              <el-tag :type="stateTagType">{{ task.state }}</el-tag>
-            </div>
-
-            <div class="suggestion-grid">
-              <div><span>Symbol</span><strong>{{ task.suggestion.symbol }}</strong></div>
-              <div><span>Side</span><strong :class="task.suggestion.side === 'BUY' ? 'buy' : 'sell'">{{ task.suggestion.side }}</strong></div>
-              <div><span>Qty</span><strong>{{ task.suggestion.quantity }}</strong></div>
-              <div><span>Leverage</span><strong>{{ task.suggestion.leverage }}x</strong></div>
-              <div><span>TP</span><strong>{{ task.suggestion.tp }}</strong></div>
-              <div><span>SL</span><strong>{{ task.suggestion.sl }}</strong></div>
-            </div>
-            <div class="reason-box">{{ task.suggestion.rationale }}</div>
-            <div class="reason-box subtle">Expires at {{ task.suggestion.expires_at }}</div>
-
-            <div class="approval-actions" v-if="task.state === 'pending_approval'">
-              <el-button type="success" :loading="approving" @click="approve('yes')">Yes / Approve</el-button>
-              <el-button type="danger" plain :loading="approving" @click="approve('no')">No / Cancel</el-button>
-            </div>
-
-            <div v-if="task.approval" class="decision-box">
-              Human reply: <strong>{{ task.approval.decision.toUpperCase() }}</strong>
-              via {{ task.approval.channel }} at {{ task.approval.decided_at }}
-            </div>
-
-            <div v-if="task.execution_result" class="exec-box">
-              <div class="exec-title">Step D · Mock execution result</div>
-              <div>{{ task.execution_result.message }}</div>
-              <div v-if="task.execution_result.mock_order_id">
-                Mock Order ID: <code>{{ task.execution_result.mock_order_id }}</code>
+              <div class="panel-actions">
+                <el-button
+                  type="warning"
+                  :disabled="!accountConnected || !!task"
+                  :loading="generatingSuggestion"
+                  @click="generateSuggestion"
+                >
+                  Generate Suggestion
+                </el-button>
+                <el-button text @click="showSampleCurl = !showSampleCurl">Toggle curl</el-button>
               </div>
             </div>
+
+            <pre v-if="showSampleCurl" class="curl-block"><code>{{ sampleCurl }}</code></pre>
+
+            <div v-if="task" class="push-card">
+              <div class="push-head">
+                <div>
+                  <div class="push-title">NOFA Trading Opportunity</div>
+                  <div class="push-sub">Task {{ task.task_id }} · OpenClaw push (mock)</div>
+                </div>
+                <el-tag :type="stateTagType">{{ task.state }}</el-tag>
+              </div>
+
+              <div class="suggestion-grid">
+                <div><span>Symbol</span><strong>{{ task.suggestion.symbol }}</strong></div>
+                <div><span>Side</span><strong :class="task.suggestion.side === 'BUY' ? 'buy' : 'sell'">{{ task.suggestion.side }}</strong></div>
+                <div><span>Qty</span><strong>{{ task.suggestion.quantity }}</strong></div>
+                <div><span>Leverage</span><strong>{{ task.suggestion.leverage }}x</strong></div>
+                <div><span>TP</span><strong>{{ task.suggestion.tp }}</strong></div>
+                <div><span>SL</span><strong>{{ task.suggestion.sl }}</strong></div>
+              </div>
+
+              <div class="reason-box">{{ task.suggestion.rationale }}</div>
+              <div class="reason-box subtle">Expires at {{ task.suggestion.expires_at }}</div>
+
+              <div v-if="task.state === 'pending_approval'" class="approval-actions">
+                <el-button type="success" :loading="approving" @click="approve('yes')">Yes / Approve</el-button>
+                <el-button type="danger" plain :loading="approving" @click="approve('no')">No / Cancel</el-button>
+              </div>
+
+              <div v-if="task.approval" class="status-card">
+                <div class="status-title">Human decision captured</div>
+                <div class="kv">
+                  <span>Decision</span>
+                  <strong>{{ task.approval.decision.toUpperCase() }}</strong>
+                </div>
+                <div class="kv">
+                  <span>Channel</span>
+                  <span>{{ task.approval.channel }}</span>
+                </div>
+                <div class="kv">
+                  <span>Time</span>
+                  <span>{{ task.approval.decided_at }}</span>
+                </div>
+              </div>
+
+              <div v-if="task.execution_result" class="status-card">
+                <div class="status-title">4. Mock execution result</div>
+                <p>{{ task.execution_result.message }}</p>
+                <div v-if="task.execution_result.mock_order_id" class="kv">
+                  <span>Mock Order ID</span>
+                  <code>{{ task.execution_result.mock_order_id }}</code>
+                </div>
+              </div>
+            </div>
+
+            <el-empty v-else description="Submit account first, then generate a NOFA suggestion" />
           </div>
-        </div>
 
-        <div class="demo-card">
-          <div class="card-hd">State Machine + Audit Timeline</div>
-          <div class="state-strip">
-            <span
-              v-for="s in stateMachine"
-              :key="s"
-              :class="['state-pill', { active: currentMachineState === s }]"
-            >
-              {{ s }}
-            </span>
-          </div>
-
-          <div class="timeline">
-            <div v-for="(event, idx) in auditEvents" :key="`${event.time}-${idx}`" class="timeline-item">
-              <div class="timeline-dot"></div>
-              <div class="timeline-content">
-                <div class="tl-meta">{{ event.time }} · {{ event.actor }}</div>
-                <div class="tl-title">{{ event.type }}</div>
-                <div class="tl-summary">{{ event.summary }}</div>
-              </div>
+          <div class="panel">
+            <div class="panel-title">State machine + audit timeline</div>
+            <div class="state-strip">
+              <span
+                v-for="s in stateMachine"
+                :key="s"
+                :class="['state-pill', { active: currentMachineState === s }]"
+              >
+                {{ s }}
+              </span>
             </div>
-            <el-empty v-if="!auditEvents.length" description="No audit events yet" />
+
+            <div class="timeline">
+              <div v-for="(event, idx) in auditEvents" :key="`${event.time}-${idx}`" class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <div class="tl-meta">{{ event.time }} · {{ event.actor }}</div>
+                  <div class="tl-title">{{ event.type }}</div>
+                  <div class="tl-summary">{{ event.summary }}</div>
+                </div>
+              </div>
+              <el-empty v-if="!auditEvents.length" description="No audit events yet" />
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section ref="docsRef" class="section">
-      <div class="section-title">API Integration Preview</div>
+    <section ref="docsRef" class="band docs-band">
+      <div class="band-head">
+        <h2>Docs for OpenClaw integration</h2>
+        <p>今天 demo 先把接口和 Skill contract 定义清楚，后续再接真实 webhook / exchange testnet。</p>
+      </div>
       <div class="docs-grid">
-        <div class="info-card">
-          <h3>Core Endpoints (OpenAPI)</h3>
-          <ul class="endpoint-list">
-            <li><code>POST /api/nofa/openclaw/accounts</code></li>
-            <li><code>POST /api/nofa/openclaw/suggestions</code></li>
-            <li><code>POST /api/nofa/openclaw/approvals</code></li>
-            <li><code>GET /api/nofa/openclaw/tasks/{task_id}</code></li>
-          </ul>
-        </div>
-        <div class="info-card">
-          <h3>Docs Files (repo paths)</h3>
-          <p><code>/Users/bowenwang/NOF2 /TradingAgents-CN/docs/integration/NOFA_OPENCLAW_AGENT_NATIVE_DEMO.md</code></p>
-          <p><code>/Users/bowenwang/NOF2 /TradingAgents-CN/docs/api/NOFA_OPENCLAW_TRADING_OPENAPI.md</code></p>
+        <div class="panel">
+          <div class="panel-title">Docs files</div>
+          <div class="doc-item">
+            <code>/Users/bowenwang/NOF2 /TradingAgents-CN/docs/integration/NOFA_OPENCLAW_AGENT_NATIVE_DEMO.md</code>
+          </div>
+          <div class="doc-item">
+            <code>/Users/bowenwang/NOF2 /TradingAgents-CN/docs/api/NOFA_OPENCLAW_TRADING_OPENAPI.md</code>
+          </div>
           <p class="muted">Landing route: <code>/nofa-agent-native</code></p>
         </div>
-      </div>
-    </section>
 
-    <section class="section">
-      <div class="section-title">Risk & Disclaimer</div>
-      <div class="three-col">
-        <div class="info-card"><h3>Demo only</h3><p>无真实下单、无真实交易所请求。</p></div>
-        <div class="info-card"><h3>Not financial advice</h3><p>页面建议仅用于展示 agent approval flow。</p></div>
-        <div class="info-card"><h3>Timeout = Cancel</h3><p>生产建议默认超时取消，避免静默执行。</p></div>
+        <div class="panel">
+          <div class="panel-title">Safety defaults (documented)</div>
+          <ul class="plain-list">
+            <li>Timeout defaults to cancel</li>
+            <li>Idempotency by <code>suggestion_id</code></li>
+            <li>Credential masking in UI</li>
+            <li>HMAC signature headers reserved for production</li>
+            <li>Auditability for every decision and execution result</li>
+          </ul>
+        </div>
       </div>
     </section>
   </div>
@@ -392,325 +485,492 @@ function resetDemo() {
 
 <style scoped lang="scss">
 .nofa-agent-native {
-  --bg: #070809;
-  --bg2: #101218;
-  --panel: rgba(16, 18, 24, 0.92);
-  --line: rgba(246, 190, 0, 0.22);
-  --gold: #f6be00;
-  --gold-soft: #ffd54a;
-  --text: #f7f4e8;
-  --muted: #9ea3b0;
+  --bg: #0a0a0b;
+  --panel: #101012;
+  --panel-soft: rgba(16, 16, 18, 0.9);
+  --line: rgba(255, 255, 255, 0.1);
+  --line-strong: rgba(245, 173, 34, 0.35);
+  --text: #f6f3ea;
+  --muted: #b6b0a1;
+  --muted-2: #908a7d;
+  --accent: #f5ad22;
+  --green: #43d37a;
+  --red: #ff6d6d;
   position: relative;
   min-height: 100vh;
+  padding: 20px;
   color: var(--text);
   background:
-    radial-gradient(circle at 12% 10%, rgba(246, 190, 0, 0.15), transparent 40%),
-    radial-gradient(circle at 85% 15%, rgba(79, 132, 255, 0.12), transparent 35%),
-    linear-gradient(180deg, #040506, #090b11 35%, #08090b);
-  padding: 28px;
-  overflow: hidden;
+    radial-gradient(circle at 12% 0%, rgba(245, 173, 34, 0.16), transparent 38%),
+    radial-gradient(circle at 90% 10%, rgba(255, 255, 255, 0.06), transparent 30%),
+    #090909;
 }
 
-.bg-grid {
+.noise {
   position: fixed;
   inset: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-  background-size: 32px 32px;
   pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+  background-size: 28px 28px;
+  opacity: 0.55;
 }
 
-.hero, .section {
+.hero-shell,
+.band {
   position: relative;
   z-index: 1;
+  max-width: 1240px;
+  margin: 0 auto;
 }
 
-.hero {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 22px;
+.hero-shell {
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(20, 20, 22, 0.95), rgba(10, 10, 11, 0.98));
+  border-radius: 20px;
+  padding: 18px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.topline {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.hero-copy, .hero-panel, .demo-card, .info-card, .mode-card {
-  background: linear-gradient(180deg, rgba(18, 20, 28, 0.95), rgba(10, 12, 18, 0.95));
-  border: 1px solid rgba(255, 215, 64, 0.18);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03), 0 12px 32px rgba(0, 0, 0, 0.35);
-  border-radius: 14px;
+.brand-pill {
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: rgba(245, 173, 34, 0.08);
+  color: #ffd67c;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 7px 12px;
+  font-weight: 700;
+}
+
+.hero-links {
+  display: flex;
+  gap: 8px;
+}
+
+.hero-links button {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: transparent;
+  color: var(--text);
+  border-radius: 999px;
+  padding: 7px 12px;
+  cursor: pointer;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 16px;
+  padding-top: 16px;
 }
 
 .hero-copy {
-  padding: 24px;
+  padding: 10px 8px 8px 4px;
 }
 
 .eyebrow {
-  color: var(--gold-soft);
-  letter-spacing: 0.12em;
-  font-size: 12px;
-  margin: 0 0 8px 0;
+  margin: 0 0 10px;
+  color: #cfc7b3;
   text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 11px;
 }
 
 h1 {
   margin: 0;
-  line-height: 1.05;
-  font-size: 42px;
-  color: #fff2bf;
+  font-size: clamp(34px, 4vw, 56px);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  color: #f8f5ed;
 }
 
-.subtitle {
-  margin: 12px 0 8px;
-  color: #ffe18a;
-  font-size: 18px;
-}
-
-.desc {
-  margin: 0;
+.hero-sub {
+  margin: 16px 0 0;
+  max-width: 640px;
   color: var(--muted);
-  line-height: 1.6;
+  line-height: 1.55;
+  font-size: 15px;
 }
 
-.hero-actions {
+.hero-cta {
   margin-top: 18px;
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
 }
 
-.disclaimer-inline {
-  margin-top: 14px;
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
+.hero-proof {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
 }
 
-.hero-panel {
-  padding: 18px;
-}
-
-.terminal-card {
+.proof-item {
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.02);
   border-radius: 12px;
-  border: 1px solid rgba(246, 190, 0, 0.25);
-  background: #0b0d14;
+  padding: 10px;
 }
 
-.terminal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 12px;
-  border-bottom: 1px solid rgba(246, 190, 0, 0.12);
-  color: #d4d7df;
-  font-size: 12px;
+.proof-k {
+  display: block;
+  color: var(--muted-2);
+  font-size: 11px;
+  margin-bottom: 4px;
 }
 
-.status-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #4ad97b;
-  box-shadow: 0 0 10px rgba(74, 217, 123, 0.7);
+.proof-item strong {
+  font-size: 13px;
+  line-height: 1.35;
+  color: #f7f1df;
 }
 
-.terminal-body {
+.hero-aside {
+  display: grid;
+  gap: 12px;
+}
+
+.mini-card,
+.panel,
+.feature-card,
+.mode-row {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--panel-soft);
+  border-radius: 14px;
+}
+
+.mini-card {
   padding: 14px;
 }
 
-.msg-title {
+.mini-title {
   font-weight: 700;
-  margin-bottom: 10px;
-  color: #ffe39a;
+  color: #fbe9b7;
+  margin-bottom: 8px;
 }
 
-.msg-row {
+.metrics-card ul {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.metrics-card li + li {
+  margin-top: 6px;
+}
+
+.message-card {
+  background: linear-gradient(180deg, rgba(20, 17, 10, 0.6), rgba(13, 13, 14, 0.95));
+  border-color: rgba(245, 173, 34, 0.2);
+}
+
+.message-head {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 6px;
-  color: #aeb3bf;
+  gap: 10px;
+  align-items: center;
+  color: #d7d0c0;
+  font-size: 12px;
 }
 
-.msg-row strong {
+.badge-live {
+  border: 1px solid rgba(245, 173, 34, 0.35);
+  color: #ffd67c;
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+
+.message-title {
+  margin-top: 10px;
+  font-weight: 700;
+  color: #fff3cf;
+}
+
+.message-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.message-grid > div {
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 10px;
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  color: #bfb7a5;
+  font-size: 12px;
+}
+
+.message-grid strong {
   color: #fff;
 }
 
-.buy { color: #4ad97b; }
-.sell { color: #ff6c6c; }
+.buy {
+  color: var(--green);
+}
 
-.msg-reason {
-  margin: 10px 0;
-  padding: 10px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.03);
-  color: #c6cad4;
+.sell {
+  color: var(--red);
+}
+
+.message-note {
+  margin: 10px 0 0;
+  color: var(--muted);
   font-size: 13px;
 }
 
-.msg-actions {
+.message-buttons {
+  margin-top: 12px;
   display: flex;
   gap: 8px;
 }
 
-.msg-actions button {
-  border: 1px solid rgba(246, 190, 0, 0.4);
-  background: #f6be00;
-  color: #121212;
-  padding: 8px 12px;
-  border-radius: 8px;
+.message-buttons button {
+  border-radius: 10px;
+  padding: 9px 12px;
+  border: 1px solid transparent;
+  cursor: pointer;
   font-weight: 700;
 }
 
-.msg-actions button.ghost {
+.btn-primary {
+  background: var(--accent);
+  color: #17120a;
+}
+
+.btn-secondary {
   background: transparent;
-  color: #ffe39a;
+  color: #f0dcc0;
+  border-color: rgba(255, 255, 255, 0.14) !important;
 }
 
-.section {
+.band {
   margin-top: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 18px;
+  background: rgba(12, 12, 13, 0.92);
+  padding: 18px;
 }
 
-.section-title {
-  margin-bottom: 10px;
-  font-size: 20px;
-  font-weight: 700;
-  color: #fff2c1;
+.band-head h2 {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
-.three-col {
+.band-head p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  max-width: 820px;
+  line-height: 1.55;
+}
+
+.feature-grid {
+  margin-top: 14px;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
+  gap: 12px;
 }
 
-.info-card {
-  padding: 16px;
+.feature-card {
+  padding: 14px;
 }
 
-.info-card h3 {
-  margin: 0 0 8px;
-  color: #ffe18a;
+.feature-card h3 {
+  margin: 0 0 6px;
+  color: #f8e9bf;
+  font-size: 16px;
 }
 
-.info-card p, .info-card li {
+.feature-card p {
+  margin: 0;
   color: var(--muted);
   line-height: 1.5;
 }
 
-.modes {
+.mode-rows {
+  margin-top: 14px;
+  display: grid;
+  gap: 10px;
+}
+
+.mode-row {
+  padding: 14px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 14px;
 }
 
-.mode-card {
-  padding: 16px;
+.mode-row.active {
+  border-color: rgba(245, 173, 34, 0.28);
+  box-shadow: inset 0 0 0 1px rgba(245, 173, 34, 0.08);
 }
 
-.mode-card.active {
-  border-color: rgba(246, 190, 0, 0.45);
-  box-shadow: inset 0 0 0 1px rgba(246, 190, 0, 0.1), 0 12px 32px rgba(246, 190, 0, 0.07);
+.mode-name {
+  font-weight: 700;
+  color: #fff0c1;
 }
 
-.mode-card h3 {
-  margin: 0 0 8px;
+.mode-copy {
+  margin: 6px 0 0;
+  color: var(--muted);
 }
 
-.mode-card p {
-  margin: 0 0 8px;
-  color: #ffe18a;
-}
-
-.mode-card ul {
+.mode-row ul {
   margin: 0;
   padding-left: 18px;
   color: var(--muted);
 }
 
-.demo-section {
+.mode-row li + li {
+  margin-top: 5px;
+}
+
+.demo-band {
   scroll-margin-top: 20px;
 }
 
-.demo-grid {
+.demo-alert {
   margin-top: 12px;
-  display: grid;
-  grid-template-columns: 1.05fr 1fr 1fr;
-  gap: 14px;
 }
 
-.demo-card {
+.demo-layout {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 12px;
+}
+
+.demo-column {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+
+.demo-column.wide {
+  grid-template-rows: auto auto;
+}
+
+.panel {
   padding: 14px;
 }
 
-.card-hd {
+.panel-title {
   font-weight: 700;
-  color: #ffe39a;
-  margin-bottom: 12px;
+  color: #f8e9bf;
+}
+
+.panel-desc {
+  margin: 6px 0 0;
+  color: var(--muted);
+  line-height: 1.45;
+  font-size: 13px;
+}
+
+.panel-toprow {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.panel-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .demo-form {
-  margin-top: 8px;
+  margin-top: 12px;
 }
 
 .form-actions {
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
-.result-box, .decision-box, .exec-box {
+.status-card {
   margin-top: 12px;
-  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.02);
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 10px;
 }
 
-.result-title, .exec-title {
-  color: #d6ffb3;
+.status-card.success {
+  border-color: rgba(67, 211, 122, 0.25);
+  background: rgba(67, 211, 122, 0.03);
+}
+
+.status-title {
   font-weight: 700;
+  color: #e7f7cf;
   margin-bottom: 8px;
 }
 
-.result-line {
+.kv {
   display: flex;
   justify-content: space-between;
   gap: 10px;
-  margin-bottom: 6px;
+  align-items: center;
   color: var(--muted);
+  font-size: 13px;
+  margin-top: 6px;
 }
 
-.result-line code {
-  color: #fce29f;
+.kv code {
   word-break: break-all;
 }
 
-.action-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 10px;
+.endpoint-list {
+  margin: 10px 0 0;
+  padding-left: 18px;
+}
+
+.endpoint-list li + li {
+  margin-top: 6px;
 }
 
 .curl-block {
-  margin: 0 0 10px;
-  background: #0b0d14;
+  margin: 10px 0 0;
+  background: #0b0b0d;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 10px;
-  color: #c4cad6;
+  color: #d4d0c6;
   font-size: 12px;
   overflow-x: auto;
 }
 
 .push-card {
-  border: 1px solid rgba(246, 190, 0, 0.2);
-  border-radius: 10px;
+  margin-top: 12px;
+  border: 1px solid rgba(245, 173, 34, 0.22);
+  background: linear-gradient(180deg, rgba(19, 16, 11, 0.55), rgba(13, 13, 14, 0.95));
+  border-radius: 12px;
   padding: 12px;
-  background: rgba(10, 12, 18, 0.9);
 }
 
-.push-header {
+.push-head {
   display: flex;
   justify-content: space-between;
   gap: 10px;
@@ -719,11 +979,11 @@ h1 {
 
 .push-title {
   font-weight: 700;
-  color: #fff1bb;
+  color: #fff3cb;
 }
 
 .push-sub {
-  margin-top: 2px;
+  margin-top: 3px;
   color: var(--muted);
   font-size: 12px;
 }
@@ -731,18 +991,20 @@ h1 {
 .suggestion-grid {
   margin-top: 10px;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
 }
 
 .suggestion-grid > div {
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
   padding: 8px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.02);
   display: flex;
   justify-content: space-between;
   gap: 8px;
-  color: #b5bbca;
+  background: rgba(255, 255, 255, 0.02);
+  color: #bfb7a5;
+  font-size: 12px;
 }
 
 .suggestion-grid strong {
@@ -751,14 +1013,15 @@ h1 {
 
 .reason-box {
   margin-top: 10px;
+  border-radius: 10px;
   padding: 10px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.03);
-  color: #d0d4de;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  color: #d9d3c8;
 }
 
 .reason-box.subtle {
-  color: #a4aabc;
+  color: var(--muted-2);
   font-size: 12px;
 }
 
@@ -766,36 +1029,37 @@ h1 {
   margin-top: 12px;
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 .state-strip {
+  margin-top: 12px;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 12px;
 }
 
 .state-pill {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--muted-2);
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 4px 10px;
-  color: #9ea3b0;
+  padding: 5px 10px;
   font-size: 12px;
 }
 
 .state-pill.active {
-  border-color: rgba(246, 190, 0, 0.35);
-  background: rgba(246, 190, 0, 0.1);
-  color: #ffe18a;
+  border-color: rgba(245, 173, 34, 0.35);
+  background: rgba(245, 173, 34, 0.09);
+  color: #ffd98c;
 }
 
 .timeline {
+  margin-top: 12px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  max-height: 440px;
+  gap: 8px;
+  max-height: 360px;
   overflow: auto;
-  padding-right: 2px;
 }
 
 .timeline-item {
@@ -807,49 +1071,59 @@ h1 {
 .timeline-dot {
   width: 8px;
   height: 8px;
-  margin-top: 6px;
+  margin-top: 7px;
   border-radius: 50%;
-  background: #f6be00;
-  box-shadow: 0 0 12px rgba(246, 190, 0, 0.6);
+  background: var(--accent);
+  box-shadow: 0 0 12px rgba(245, 173, 34, 0.45);
 }
 
 .timeline-content {
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  padding: 8px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.015);
+  padding: 9px 10px;
 }
 
 .tl-meta {
-  color: #9ba1af;
+  color: var(--muted-2);
   font-size: 11px;
 }
 
 .tl-title {
-  color: #fbe3a0;
+  margin-top: 3px;
+  color: #f5e4b6;
   font-weight: 600;
-  margin-top: 2px;
 }
 
 .tl-summary {
-  color: #c6cad4;
   margin-top: 4px;
+  color: #d5d0c4;
   font-size: 13px;
 }
 
+.docs-band {
+  scroll-margin-top: 20px;
+}
+
 .docs-grid {
+  margin-top: 14px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 14px;
+  gap: 12px;
 }
 
-.endpoint-list {
-  margin: 0;
+.doc-item + .doc-item {
+  margin-top: 8px;
+}
+
+.plain-list {
+  margin: 10px 0 0;
   padding-left: 18px;
+  color: var(--muted);
 }
 
-.endpoint-list li {
-  margin-bottom: 6px;
+.plain-list li + li {
+  margin-top: 6px;
 }
 
 .muted {
@@ -857,24 +1131,61 @@ h1 {
 }
 
 code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 12px;
 }
 
-@media (max-width: 1200px) {
-  .hero, .demo-grid {
+@media (max-width: 1180px) {
+  .hero-grid,
+  .demo-layout {
     grid-template-columns: 1fr;
   }
-  .three-col, .modes, .docs-grid {
+
+  .hero-proof,
+  .feature-grid,
+  .docs-grid,
+  .mode-row {
     grid-template-columns: 1fr;
+  }
+
+  .suggestion-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .nofa-agent-native {
+    padding: 12px;
+  }
+
+  .topline {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .panel-toprow {
+    flex-direction: column;
+  }
+
+  .suggestion-grid,
+  .message-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-links {
+    width: 100%;
+  }
+
+  .hero-links button {
+    flex: 1;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   * {
-    scroll-behavior: auto !important;
-    transition: none !important;
     animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
   }
 }
 </style>
