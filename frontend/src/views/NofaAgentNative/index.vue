@@ -1,11 +1,19 @@
 <template>
-  <div class="nofa-agent-native">
+  <div class="nofa-agent-native" :class="`variant-${selectedVersion}`">
     <div class="noise"></div>
 
     <section class="hero-shell">
       <div class="topline">
         <div class="brand-pill">NOFA x OpenClaw</div>
         <div class="hero-links">
+          <button
+            v-for="v in versions"
+            :key="v.id"
+            :class="{ active: selectedVersion === v.id }"
+            @click="selectedVersion = v.id"
+          >
+            {{ v.label }}
+          </button>
           <button @click="scrollToDemo">Demo</button>
           <button @click="scrollToDocs">API Docs</button>
         </div>
@@ -13,16 +21,9 @@
 
       <div class="hero-grid">
         <div class="hero-copy">
-          <p class="eyebrow">Agent-native trading workflow</p>
-          <h1>
-            AI suggests the trade.<br>
-            Human approves the trade.<br>
-            The system runs 24/7.
-          </h1>
-          <p class="hero-sub">
-            用 NOFA 做策略大脑，用 OpenClaw 做 runtime、push 与审批。把「交易建议」变成一个可审计、可回放、
-            可接入的 agent task，而不是一条聊天消息。
-          </p>
+          <p class="eyebrow">{{ heroContent.eyebrow }}</p>
+          <h1 v-html="heroContent.title"></h1>
+          <p class="hero-sub">{{ heroContent.subtitle }}</p>
 
           <div class="hero-cta">
             <el-button type="warning" size="large" @click="scrollToDemo">Try Demo Flow</el-button>
@@ -49,10 +50,10 @@
           <div class="mini-card metrics-card">
             <div class="mini-title">What this demo proves</div>
             <ul>
-              <li>OpenClaw can onboard exchange credentials (mock)</li>
+              <li>OpenClaw can collect exchange credentials (mock)</li>
               <li>NOFA can publish a typed trade suggestion</li>
               <li>Human can reply yes / no before execution</li>
-              <li>Every step is tracked as an audit timeline</li>
+              <li>Every step is tracked in an audit timeline</li>
             </ul>
           </div>
 
@@ -82,40 +83,59 @@
       <div class="band-head">
         <h2>Why this is agent-native (not just chat-native)</h2>
         <p>
-          YC 风格的核心不是“炫 UI”，而是把产品价值讲清楚。这里的价值是：建议、审批、执行、审计在同一条任务链上。
+          This is not a chat bot that outputs a suggestion. It is a task system where suggestion, approval,
+          execution, and audit all live in the same workflow.
         </p>
       </div>
       <div class="feature-grid">
         <div class="feature-card">
           <h3>NOFA = strategy engine</h3>
-          <p>生成交易建议、风险解释、symbol 选择和模式策略（pilot / co-pilot）。</p>
+          <p>Generates trade suggestions, risk rationale, symbol selection, and operating mode policy.</p>
         </div>
         <div class="feature-card">
           <h3>OpenClaw = runtime + approvals</h3>
-          <p>推送建议、采集 yes/no、回调结果，并作为任务执行轨迹的 runtime 层。</p>
+          <p>Pushes suggestions, captures yes/no, sends callbacks, and stores execution trace as runtime.</p>
         </div>
         <div class="feature-card">
           <h3>Human = decision checkpoint</h3>
-          <p>在 Co-Pilot 模式中保留最终控制权，防止未确认交易被静默执行。</p>
+          <p>Retains final control in Co-Pilot mode so no trade executes without explicit approval.</p>
         </div>
+      </div>
+    </section>
+
+    <section class="band workflow-band">
+      <div class="band-head">
+        <h2>Demo workflow</h2>
+        <p>The page below demonstrates the exact sequence we want OpenClaw to run.</p>
+      </div>
+      <div class="workflow-strip">
+        <div class="wf-step"><span>1</span><p>User submits Binance API key in OpenClaw (mock)</p></div>
+        <div class="wf-arrow">→</div>
+        <div class="wf-step"><span>2</span><p>NOFA returns account connection + masked key</p></div>
+        <div class="wf-arrow">→</div>
+        <div class="wf-step"><span>3</span><p>NOFA Copilot publishes a typed trade suggestion</p></div>
+        <div class="wf-arrow">→</div>
+        <div class="wf-step"><span>4</span><p>OpenClaw pushes card and waits for yes/no</p></div>
+        <div class="wf-arrow">→</div>
+        <div class="wf-step"><span>5</span><p>Approval callback triggers mock execution + audit log</p></div>
       </div>
     </section>
 
     <section class="band modes-band">
       <div class="band-head">
         <h2>One system, two operating modes</h2>
-        <p>同一个任务状态机，切换审批策略即可支持 Pilot 与 Co-Pilot。</p>
+        <p>Use one state machine, switch only the approval policy.</p>
       </div>
       <div class="mode-rows">
         <div class="mode-row">
           <div>
             <div class="mode-name">Pilot Mode</div>
-            <p class="mode-copy">Auto-approve policy（今天不演示真实执行，仅展示概念映射）</p>
+            <p class="mode-copy">Auto-approve policy (concept shown only in today's demo)</p>
           </div>
           <ul>
-            <li>适合受控账户或阈值内策略</li>
-            <li>仍然保留审计日志与任务记录</li>
-            <li>可配置高风险交易强制人工审批</li>
+            <li>Fits controlled accounts or low-risk thresholds</li>
+            <li>Still keeps task-level audit logs</li>
+            <li>Can require human approval for high-risk trades</li>
           </ul>
         </div>
 
@@ -125,9 +145,9 @@
             <p class="mode-copy">Human approval required before execution</p>
           </div>
           <ul>
-            <li>NOFA 先给建议与理由</li>
-            <li>OpenClaw 推送建议给人类</li>
-            <li>Yes / No 决策回传 NOFA 再执行（mock）</li>
+            <li>NOFA produces a suggestion with rationale</li>
+            <li>OpenClaw pushes the suggestion to a human</li>
+            <li>Yes / No callback returns to NOFA before execution (mock)</li>
           </ul>
         </div>
       </div>
@@ -136,19 +156,19 @@
     <section ref="demoRef" class="band demo-band">
       <div class="band-head">
         <h2>Interactive demo (today)</h2>
-        <p>模拟完整链路：API key onboarding → NOFA suggestion → Human approval → Mock execution result.</p>
+        <p>Simulated end-to-end flow: API key onboarding → NOFA suggestion → human approval → mock execution.</p>
       </div>
 
       <el-alert type="warning" :closable="false" show-icon class="demo-alert">
         <template #title>Demo only / No live trading / No real exchange request</template>
-        所有 API Key 仅保存在本页内存态；不会发起真实 Binance 下单或验签。
+        API keys are stored in page memory only. No real Binance order or signature validation is executed.
       </el-alert>
 
       <div class="demo-layout">
         <div class="demo-column">
           <div class="panel">
             <div class="panel-title">1. Connect account (mock)</div>
-            <p class="panel-desc">用户通过 OpenClaw 提交交易所 API，NOFA 返回 account_id 与 masked key。</p>
+            <p class="panel-desc">User submits exchange credentials via OpenClaw; NOFA returns account_id and masked key.</p>
             <el-form label-width="96px" class="demo-form">
               <el-form-item label="Mode">
                 <el-radio-group v-model="mode">
@@ -189,7 +209,7 @@
 
           <div class="panel">
             <div class="panel-title">2. API integration preview</div>
-            <p class="panel-desc">OpenClaw 一下接入 NOFA 的最小接口面。</p>
+            <p class="panel-desc">The smallest API surface for OpenClaw to plug into NOFA trading workflows.</p>
             <ul class="endpoint-list">
               <li><code>POST /api/nofa/openclaw/accounts</code></li>
               <li><code>POST /api/nofa/openclaw/suggestions</code></li>
@@ -204,7 +224,7 @@
             <div class="panel-toprow">
               <div>
                 <div class="panel-title">3. NOFA suggestion + human yes/no</div>
-                <p class="panel-desc">模拟 OpenClaw 以 Slack / Telegram 风格卡片推送交易建议。</p>
+                <p class="panel-desc">Mock OpenClaw push card in Slack / Telegram style for human yes/no approval.</p>
               </div>
               <div class="panel-actions">
                 <el-button
@@ -307,7 +327,7 @@
     <section ref="docsRef" class="band docs-band">
       <div class="band-head">
         <h2>Docs for OpenClaw integration</h2>
-        <p>今天 demo 先把接口和 Skill contract 定义清楚，后续再接真实 webhook / exchange testnet。</p>
+        <p>Today we define the interface and skill contract first, then connect real webhooks and exchange testnets.</p>
       </div>
       <div class="docs-grid">
         <div class="panel">
@@ -319,6 +339,20 @@
             <code>/Users/bowenwang/NOF2 /TradingAgents-CN/docs/api/NOFA_OPENCLAW_TRADING_OPENAPI.md</code>
           </div>
           <p class="muted">Landing route: <code>/nofa-agent-native</code></p>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">OpenClaw copy + CLI install (how to start)</div>
+          <p class="panel-desc">Install OpenClaw CLI, then copy the NOFA skill spec / endpoint config into your runtime.</p>
+          <pre class="curl-block"><code># Example (replace with your actual OpenClaw CLI syntax)
+openclaw login
+openclaw skill add nofa-trading-copilot-approval \
+  --openapi https://YOUR_NOFA_DOMAIN/docs/openapi.json \
+  --config ./nofa-skill-config.json
+
+# Optional: wire a webhook for yes/no callbacks
+openclaw webhook add nofa-approval \
+  --url https://YOUR_NOFA_DOMAIN/api/nofa/openclaw/approvals</code></pre>
         </div>
 
         <div class="panel">
@@ -349,6 +383,38 @@ import {
 
 const demoRef = ref<HTMLElement | null>(null)
 const docsRef = ref<HTMLElement | null>(null)
+const selectedVersion = ref<'a' | 'b' | 'c'>('a')
+
+const versions = [
+  { id: 'a', label: 'Version A' },
+  { id: 'b', label: 'Version B' },
+  { id: 'c', label: 'Version C' }
+] as const
+
+const heroContent = computed(() => {
+  if (selectedVersion.value === 'b') {
+    return {
+      eyebrow: 'Agent-native execution for crypto funds',
+      title: 'Turn NOFA into an<br>OpenClaw-native trading skill.',
+      subtitle:
+        'NOFA generates trading opportunities. OpenClaw pushes approvals, captures yes/no, and runs the workflow as a persistent agent task.'
+    }
+  }
+  if (selectedVersion.value === 'c') {
+    return {
+      eyebrow: 'Human-in-the-loop trading infrastructure',
+      title: 'NOFA suggests.<br>OpenClaw orchestrates.<br>Humans stay in control.',
+      subtitle:
+        'A minimal, future-facing interface for agent-native trading: typed suggestions, approval checkpoints, callback execution, and audit trace.'
+    }
+  }
+  return {
+    eyebrow: 'Agent-native trading workflow',
+    title: 'AI suggests the trade.<br>Human approves the trade.<br>The system runs 24/7.',
+    subtitle:
+      'Use NOFA as the strategy brain and OpenClaw as the runtime, push, and approvals layer. Turn a trade suggestion into an auditable agent task.'
+  }
+})
 
 const mode = ref<Mode>('copilot')
 const exchange = ref<Exchange>('binance')
@@ -568,6 +634,12 @@ function resetDemo() {
   cursor: pointer;
 }
 
+.hero-links button.active {
+  border-color: rgba(245, 173, 34, 0.35);
+  background: rgba(245, 173, 34, 0.08);
+  color: #ffd58a;
+}
+
 .hero-grid {
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
@@ -767,6 +839,51 @@ h1 {
   border-radius: 18px;
   background: rgba(12, 12, 13, 0.92);
   padding: 18px;
+}
+
+.workflow-strip {
+  margin-top: 14px;
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.wf-step {
+  min-width: 220px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.wf-step span {
+  display: inline-flex;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  background: rgba(245, 173, 34, 0.14);
+  border: 1px solid rgba(245, 173, 34, 0.35);
+  color: #ffd68a;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.wf-step p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.4;
+  font-size: 13px;
+}
+
+.wf-arrow {
+  align-self: center;
+  color: #8f887a;
+  font-size: 18px;
+  padding: 0 2px;
 }
 
 .band-head h2 {
@@ -1116,6 +1233,10 @@ h1 {
   margin-top: 8px;
 }
 
+.docs-grid > .panel:nth-child(3) {
+  grid-column: 1 / -1;
+}
+
 .plain-list {
   margin: 10px 0 0;
   padding-left: 18px;
@@ -1148,9 +1269,49 @@ code {
     grid-template-columns: 1fr;
   }
 
+  .docs-grid > .panel:nth-child(3) {
+    grid-column: auto;
+  }
+
   .suggestion-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+}
+
+.variant-b {
+  --accent: #59d0ff;
+  --line-strong: rgba(89, 208, 255, 0.34);
+}
+
+.variant-b .brand-pill,
+.variant-b .hero-links button.active,
+.variant-b .state-pill.active {
+  color: #b8eeff;
+  border-color: rgba(89, 208, 255, 0.34);
+  background: rgba(89, 208, 255, 0.08);
+}
+
+.variant-b .message-card,
+.variant-b .push-card {
+  border-color: rgba(89, 208, 255, 0.22);
+  background: linear-gradient(180deg, rgba(8, 18, 22, 0.65), rgba(13, 13, 14, 0.95));
+}
+
+.variant-c {
+  --accent: #c2ff57;
+  --line-strong: rgba(194, 255, 87, 0.34);
+}
+
+.variant-c .brand-pill,
+.variant-c .hero-links button.active,
+.variant-c .state-pill.active {
+  color: #e5ffb9;
+  border-color: rgba(194, 255, 87, 0.34);
+  background: rgba(194, 255, 87, 0.08);
+}
+
+.variant-c .hero-shell {
+  background: linear-gradient(180deg, rgba(12, 14, 10, 0.94), rgba(10, 10, 11, 0.98));
 }
 
 @media (max-width: 720px) {
