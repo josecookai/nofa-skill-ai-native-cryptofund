@@ -29,21 +29,6 @@
             <el-button type="warning" size="large" @click="scrollToDemo">Try Demo Flow</el-button>
             <el-button size="large" @click="scrollToDocs">Read API Docs</el-button>
           </div>
-
-          <div class="hero-proof">
-            <div class="proof-item">
-              <span class="proof-k">Flow</span>
-              <strong>Suggest → Approve → Execute</strong>
-            </div>
-            <div class="proof-item">
-              <span class="proof-k">Mode</span>
-              <strong>Co-Pilot (human-in-the-loop)</strong>
-            </div>
-            <div class="proof-item">
-              <span class="proof-k">Status</span>
-              <strong>Demo only / mock execution</strong>
-            </div>
-          </div>
         </div>
 
         <div class="hero-aside">
@@ -75,6 +60,21 @@
               <button class="btn-secondary" type="button">No</button>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div class="hero-proof hero-proof-row">
+        <div class="proof-item">
+          <span class="proof-k">Flow</span>
+          <strong>Suggest → Approve → Execute</strong>
+        </div>
+        <div class="proof-item">
+          <span class="proof-k">Mode</span>
+          <strong>Co-Pilot (human-in-the-loop)</strong>
+        </div>
+        <div class="proof-item">
+          <span class="proof-k">Status</span>
+          <strong>Demo only / mock execution</strong>
         </div>
       </div>
     </section>
@@ -165,7 +165,7 @@
       </el-alert>
 
       <div class="demo-layout">
-        <div class="demo-column">
+        <div class="demo-column demo-side">
           <div class="panel">
             <div class="panel-title">1. Connect account (mock)</div>
             <p class="panel-desc">User submits exchange credentials via OpenClaw; NOFA returns account_id and masked key.</p>
@@ -219,8 +219,8 @@
           </div>
         </div>
 
-        <div class="demo-column wide">
-          <div class="panel">
+        <div class="demo-main">
+          <div class="panel demo-stage">
             <div class="panel-toprow">
               <div>
                 <div class="panel-title">3. NOFA suggestion + human yes/no</div>
@@ -296,7 +296,7 @@
             <el-empty v-else description="Submit account first, then generate a NOFA suggestion" />
           </div>
 
-          <div class="panel">
+          <div class="panel timeline-panel">
             <div class="panel-title">State machine + audit timeline</div>
             <div class="state-strip">
               <span
@@ -643,12 +643,13 @@ function resetDemo() {
 .hero-grid {
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
-  gap: 16px;
+  gap: 20px;
   padding-top: 16px;
 }
 
 .hero-copy {
-  padding: 10px 8px 8px 4px;
+  padding: 14px 10px 4px 6px;
+  max-width: 700px;
 }
 
 .eyebrow {
@@ -661,17 +662,17 @@ function resetDemo() {
 
 h1 {
   margin: 0;
-  font-size: clamp(34px, 4vw, 56px);
-  line-height: 0.98;
+  font-size: clamp(38px, 4.2vw, 62px);
+  line-height: 0.94;
   letter-spacing: -0.03em;
   color: #f8f5ed;
 }
 
 .hero-sub {
   margin: 16px 0 0;
-  max-width: 640px;
+  max-width: 60ch;
   color: var(--muted);
-  line-height: 1.55;
+  line-height: 1.6;
   font-size: 15px;
 }
 
@@ -689,11 +690,17 @@ h1 {
   gap: 10px;
 }
 
+.hero-proof-row {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
 .proof-item {
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.015);
   border-radius: 12px;
-  padding: 10px;
+  padding: 12px;
 }
 
 .proof-k {
@@ -712,6 +719,7 @@ h1 {
 .hero-aside {
   display: grid;
   gap: 12px;
+  align-content: start;
 }
 
 .mini-card,
@@ -747,6 +755,7 @@ h1 {
 .message-card {
   background: linear-gradient(180deg, rgba(20, 17, 10, 0.6), rgba(13, 13, 14, 0.95));
   border-color: rgba(245, 173, 34, 0.2);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
 }
 
 .message-head {
@@ -834,11 +843,11 @@ h1 {
 }
 
 .band {
-  margin-top: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  margin-top: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 18px;
-  background: rgba(12, 12, 13, 0.92);
-  padding: 18px;
+  background: rgba(12, 12, 13, 0.9);
+  padding: 20px;
 }
 
 .workflow-strip {
@@ -888,7 +897,7 @@ h1 {
 
 .band-head h2 {
   margin: 0;
-  font-size: 24px;
+  font-size: 26px;
   line-height: 1.1;
   letter-spacing: -0.02em;
 }
@@ -901,14 +910,15 @@ h1 {
 }
 
 .feature-grid {
-  margin-top: 14px;
+  margin-top: 16px;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
+  gap: 14px;
 }
 
 .feature-card {
   padding: 14px;
+  background: rgba(255, 255, 255, 0.015);
 }
 
 .feature-card h3 {
@@ -924,9 +934,9 @@ h1 {
 }
 
 .mode-rows {
-  margin-top: 14px;
+  margin-top: 16px;
   display: grid;
-  gap: 10px;
+  gap: 12px;
 }
 
 .mode-row {
@@ -934,6 +944,7 @@ h1 {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 14px;
+  background: rgba(255, 255, 255, 0.014);
 }
 
 .mode-row.active {
@@ -970,10 +981,10 @@ h1 {
 }
 
 .demo-layout {
-  margin-top: 14px;
+  margin-top: 16px;
   display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
-  gap: 12px;
+  grid-template-columns: 360px minmax(0, 1fr);
+  gap: 14px;
 }
 
 .demo-column {
@@ -982,17 +993,35 @@ h1 {
   align-content: start;
 }
 
-.demo-column.wide {
-  grid-template-rows: auto auto;
+.demo-side {
+  position: sticky;
+  top: 16px;
+  align-self: start;
+}
+
+.demo-main {
+  display: grid;
+  gap: 14px;
+}
+
+.demo-stage {
+  min-height: 420px;
+}
+
+.timeline-panel {
+  min-height: 280px;
 }
 
 .panel {
-  padding: 14px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.012);
+  border-color: rgba(255, 255, 255, 0.06);
 }
 
 .panel-title {
   font-weight: 700;
-  color: #f8e9bf;
+  color: #f3e1b2;
+  letter-spacing: -0.01em;
 }
 
 .panel-desc {
@@ -1000,12 +1029,13 @@ h1 {
   color: var(--muted);
   line-height: 1.45;
   font-size: 13px;
+  max-width: 64ch;
 }
 
 .panel-toprow {
   display: flex;
   justify-content: space-between;
-  gap: 10px;
+  gap: 16px;
   align-items: flex-start;
 }
 
@@ -1081,10 +1111,10 @@ h1 {
 
 .push-card {
   margin-top: 12px;
-  border: 1px solid rgba(245, 173, 34, 0.22);
+  border: 1px solid rgba(245, 173, 34, 0.18);
   background: linear-gradient(180deg, rgba(19, 16, 11, 0.55), rgba(13, 13, 14, 0.95));
   border-radius: 12px;
-  padding: 12px;
+  padding: 14px;
 }
 
 .push-head {
@@ -1109,13 +1139,13 @@ h1 {
   margin-top: 10px;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
+  gap: 10px;
 }
 
 .suggestion-grid > div {
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 10px;
-  padding: 8px;
+  padding: 10px;
   display: flex;
   justify-content: space-between;
   gap: 8px;
@@ -1154,6 +1184,7 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  margin-bottom: 10px;
 }
 
 .state-pill {
@@ -1175,7 +1206,7 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  max-height: 360px;
+  max-height: 420px;
   overflow: auto;
 }
 
@@ -1275,6 +1306,15 @@ code {
 
   .suggestion-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .demo-side {
+    position: static;
+  }
+
+  .hero-proof-row {
+    border-top: none;
+    padding-top: 0;
   }
 }
 
