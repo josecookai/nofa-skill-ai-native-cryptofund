@@ -360,6 +360,17 @@ const routes: RouteRecordRaw[] = [
     }
   },
   {
+    path: '/nofa-agent-native',
+    name: 'NofaAgentNative',
+    component: () => import('@/views/NofaAgentNative/index.vue'),
+    meta: {
+      title: 'NOFA - Agent Native Trading',
+      hideInMenu: true,
+      requiresAuth: false,
+      transition: 'fade'
+    }
+  },
+  {
     path: '/paper',
     name: 'PaperTrading',
     component: () => import('@/layouts/BasicLayout.vue'),
