@@ -230,6 +230,25 @@ async def lifespan(app: FastAPI):
 
     await init_db()
 
+    # Demo/preview startup fast path: skip heavy scheduler/data-sync initialization so
+    # the service can pass platform health checks quickly (e.g., Railway).
+    import os
+    minimal_startup = os.getenv("FASTAPI_MINIMAL_STARTUP", "false").lower() == "true"
+    if minimal_startup:
+        logger.warning("⚡ FASTAPI_MINIMAL_STARTUP=true，跳过重型启动任务（调度器/同步/配置摘要）")
+        logger.info("TradingAgents FastAPI backend started (minimal startup mode)")
+        try:
+            yield
+        finally:
+            try:
+                from app.services.user_service import user_service
+                user_service.close()
+            except Exception as e:
+                logger.warning(f"UserService cleanup error: {e}")
+            await close_db()
+            logger.info("TradingAgents FastAPI backend stopped (minimal startup mode)")
+        return
+
     #  配置桥接：将统一配置写入环境变量，供 TradingAgents 核心库使用
     try:
         from app.core.config_bridge import bridge_config_to_env
