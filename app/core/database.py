@@ -5,6 +5,7 @@
 
 import logging
 import asyncio
+import os
 from typing import Optional
 from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
 from pymongo import MongoClient
@@ -191,20 +192,28 @@ async def init_database():
     global mongo_client, mongo_db, redis_client, redis_pool
 
     try:
-        # 初始化MongoDB
-        await db_manager.init_mongodb()
-        mongo_client = db_manager.mongo_client
-        mongo_db = db_manager.mongo_db
+        mongo_enabled = os.getenv("MONGODB_ENABLED", "true").lower() == "true"
+        redis_enabled = os.getenv("REDIS_ENABLED", "true").lower() == "true"
 
-        # 初始化Redis
-        await db_manager.init_redis()
-        redis_client = db_manager.redis_client
-        redis_pool = db_manager.redis_pool
+        if mongo_enabled:
+            await db_manager.init_mongodb()
+            mongo_client = db_manager.mongo_client
+            mongo_db = db_manager.mongo_db
+        else:
+            logger.info("⏭️ 跳过MongoDB初始化 (MONGODB_ENABLED=false)")
 
-        logger.info("🎉 所有数据库连接初始化完成")
+        if redis_enabled:
+            await db_manager.init_redis()
+            redis_client = db_manager.redis_client
+            redis_pool = db_manager.redis_pool
+        else:
+            logger.info("⏭️ 跳过Redis初始化 (REDIS_ENABLED=false)")
 
-        # 🔥 初始化数据库视图和索引
-        await init_database_views_and_indexes()
+        if mongo_enabled:
+            # 仅在 MongoDB 可用时初始化视图和索引
+            await init_database_views_and_indexes()
+
+        logger.info("🎉 数据库连接初始化完成 (按环境开关)")
 
     except Exception as e:
         logger.error(f"💥 数据库初始化失败: {e}")
